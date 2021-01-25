@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyx.bookmanager.mapper.ReaderMapper">
+    <select id="getAllReader" resultType="Reader">
+        select * from reader_info
+    </select>
+
+    <select id="getReaderName" resultType="String">
+        select name from reader_info where reader_id = #{readerId}
+    </select>
+
+    <select id="getReaderInfo" resultType="Reader">
+        select * from reader_info where reader_id = #{readerId}
+    </select>
+
+    <update id="updateInfo" parameterType="Reader">
+        update reader_info set name = #{name}, sex = #{sex}, address = #{address}, birth = #{birth}, telcode = #{telcode}
+        where reader_id = #{readerId}
+    </update>
+</mapper>

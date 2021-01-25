@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理系统</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        nav {
+            font-size: 1.5rem;
+            background-color: #21D4FD;
+            background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        }
+        h1 {
+            font-size: 2rem;
+            color: white;
+        }
+        li {
+            margin: 10px 20px;
+        }
+        #searchBox {
+            width: 300px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">图书管理系统</a></h1>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/book/getAll}">图书管理</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/admin/reader/getAll}">读者管理</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/record/getAll}">借还管理</a>
+        </li>
+    </ul>
+    <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+        <div class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+               th:text="${session.name}+', 您好'">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">个人信息</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">修改密码</a>
+                <a class="dropdown-item" th:href="@{/logout}">注销</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="margin-top: 40px">
+    <table class="table table-hover" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <th>卡号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>生日</th>
+            <th>地址</th>
+            <th>电话</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reader, readerStat: ${readers}">
+            <td th:text="${reader.getReaderId()}"></td>
+            <td th:text="${reader.getName()}"></td>
+            <td th:text="${reader.getSex()}"></td>
+            <td th:text="${#dates.format(reader.getBirth(),'yyyy-MM-dd')}"></td>
+            <td th:text="${reader.getAddress()}"></td>
+            <td th:text="${reader.getTelcode()}"></td>
+            <td><a href="#" class="btn btn-outline-danger">挂失</a></td>
+            <td><a href="#" class="btn btn-outline-dark">停借</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

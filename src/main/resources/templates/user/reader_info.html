@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理系统</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        nav {
+            font-size: 1.5rem;
+            background-color: #21D4FD;
+            background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        }
+        h1 {
+            font-size: 2rem;
+            color: white;
+        }
+        li {
+            margin: 10px 20px;
+        }
+        th {
+            width: 100px;
+        }
+        label {
+            margin: auto;
+            padding-right: 20px;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">图书管理系统</a></h1>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/user/book/getAll}">图书信息</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/user/record/getOwnRecord}">借阅记录</a>
+        </li>
+    </ul>
+    <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+        <div class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+               th:text="${session.name}+', 您好'">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">个人信息</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">修改密码</a>
+                <a class="dropdown-item" th:href="@{/logout}">注销</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <form th:action="@{/user/info/update}" method="post" style="margin-top: 40px">
+        <div class="input-group">
+            <label for="readerId">卡号</label>
+            <input type="text" class="form-control" id="readerId" name="readerId" th:value="${info.getReaderId()}" readonly>
+        </div>
+        <div class="input-group">
+            <label for="name">姓名</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${info.getName()}">
+        </div>
+        <div class="input-group">
+            <label for="sex">性别</label>
+            <input type="text" class="form-control" id="sex" name="sex" th:value="${info.getSex()}">
+        </div>
+        <div class="input-group">
+            <label for="birth">生日</label>
+            <input type="text" class="form-control" id="birth" name="birth" th:value="${#dates.format(info.getBirth(),'yyyy-MM-dd')}">
+        </div>
+        <div class="input-group">
+            <label for="address">地址</label>
+            <input type="text" class="form-control" id="address" name="address" th:value="${info.getAddress()}">
+        </div>
+        <div class="input-group">
+            <label for="telcode">电话</label>
+            <input type="text" class="form-control" id="telcode" name="telcode" th:value="${info.getTelcode()}">
+        </div>
+        <input type="submit" value="修    改" class="btn btn-outline-primary btn-lg" style="margin-top: 20px">
+        <a th:href="@{/}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px; margin-top: 20px">返&nbsp;&nbsp;&nbsp;&nbsp;回</a>
+    </form>
+
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

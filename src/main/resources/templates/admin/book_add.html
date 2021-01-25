@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理系统</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        nav {
+            font-size: 1.5rem;
+            background-color: #21D4FD;
+            background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        }
+        h1 {
+            font-size: 2rem;
+            color: white;
+        }
+        li {
+            margin: 10px 20px;
+        }
+        th {
+            width: 100px;
+        }
+        label {
+            margin: auto;
+            padding-right: 20px;
+        }
+        .input-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">图书管理系统</a></h1>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/admin/book/getAll}">图书管理</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/reader/getAll}">读者管理</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/record/getAll}">借还管理</a>
+        </li>
+    </ul>
+    <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+        <div class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+               th:text="${session.name}+', 您好'">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">个人信息</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">修改密码</a>
+                <a class="dropdown-item" th:href="@{/logout}">注销</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <form th:action="@{/admin/book/add}" method="post">
+        <div class="input-group">
+            <label for="name">书名</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="input-group">
+            <label for="author">作者</label>
+            <input type="text" class="form-control" id="author" name="author">
+        </div>
+        <div class="input-group">
+            <label for="publish">出版社</label>
+            <input type="text" class="form-control" id="publish" name="publish">
+        </div>
+        <div class="input-group">
+            <label for="isbn">ISBN</label>
+            <input type="text" class="form-control" id="isbn" name="isbn">
+        </div>
+        <div class="input-group">
+            <label for="introduction">简介</label>
+            <textarea type="text" class="form-control" id="introduction" name="introduction"></textarea>
+        </div>
+        <div class="input-group">
+            <label for="language">语言</label>
+            <input type="text" class="form-control" id="language" name="language">
+        </div>
+        <div class="input-group">
+            <label for="price">价格</label>
+            <input type="text" class="form-control" id="price" name="price">
+        </div>
+        <div class="input-group">
+            <label for="pubdate">出版日期</label>
+            <input type="text" class="form-control" id="pubdate" name="pubdate">
+        </div>
+        <div class="input-group">
+            <label for="classId">分类号</label>
+            <input type="text" class="form-control" id="classId" name="classId">
+        </div>
+        <div class="input-group">
+            <label for="pressmark">书架号</label>
+            <input type="text" class="form-control" id="pressmark" name="pressmark">
+        </div>
+        <div class="input-group">
+            <label for="state">状态</label>
+            <input type="text" class="form-control" id="state" name="state">
+        </div>
+        <input type="submit" value="提    交" class="btn btn-outline-primary btn-lg">
+        <a th:href="@{/admin/book/getAll}" class="btn btn-outline-secondary btn-lg" style="margin-left: 40px">取&nbsp;&nbsp;&nbsp;&nbsp;消</a>
+    </form>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

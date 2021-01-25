@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理系统</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        nav {
+            font-size: 1.5rem;
+            background-color: #21D4FD;
+            background-image: -webkit-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -moz-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -o-linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+            background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+        }
+        h1 {
+            font-size: 2rem;
+            color: white;
+        }
+        li {
+            margin: 10px 20px;
+        }
+        th {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <ul class="navbar-nav">
+        <li>
+            <h1><a th:href="@{/}" style="color: white; text-decoration: none">图书管理系统</a></h1>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" th:href="@{/admin/book/getAll}">图书管理</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/reader/getAll}">读者管理</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/admin/record/getAll}">借还管理</a>
+        </li>
+    </ul>
+    <div class="text-white" style="font-size: medium; position: absolute; bottom: 30px; right: 40px">
+        <div class="dropdown">
+            <a class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+               th:text="${session.name}+', 您好'">
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" th:href="@{/user/toInfoPage}" sec:authorize="hasRole('USER')">个人信息</a>
+                <a class="dropdown-item" th:href="@{/toChPwdPage}">修改密码</a>
+                <a class="dropdown-item" th:href="@{/logout}">注销</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <table class="table">
+        <tr>
+            <th>书名</th>
+            <td th:text="${book.getName()}"></td>
+        </tr>
+        <tr>
+            <th>作者</th>
+            <td th:text="${book.getAuthor()}"></td>
+        </tr>
+        <tr>
+            <th>出版社</th>
+            <td th:text="${book.getPublish()}"></td>
+        </tr>
+        <tr>
+            <th>ISBN</th>
+            <td th:text="${book.getIsbn()}"></td>
+        </tr>
+        <tr>
+            <th>简介</th>
+            <td th:text="${book.getIntroduction()}"></td>
+        </tr>
+        <tr>
+            <th>语言</th>
+            <td th:text="${book.getLanguage()}"></td>
+        </tr>
+        <tr>
+            <th>价格</th>
+            <td th:text="${book.getPrice()}"></td>
+        </tr>
+        <tr>
+            <th>出版日期</th>
+            <td th:text="${#dates.format(book.getPubdate(),'yyyy-MM-dd')}"></td>
+        </tr>
+        <tr>
+            <th>分类号</th>
+            <td th:text="${book.getClassId()}"></td>
+        </tr>
+        <tr>
+            <th>书架号</th>
+            <td th:text="${book.getPressmark()}"></td>
+        </tr>
+        <tr>
+            <th>状态</th>
+            <div th:switch="${book.getState()}">
+                <td th:case="1">在馆</td>
+                <td th:case="0">缺货</td>
+            </div>
+        </tr>
+    </table>
+    <a th:href="@{/admin/book/getAll}" class="btn btn-outline-primary btn-lg">返&nbsp;&nbsp;&nbsp;&nbsp;回</a>
+</div>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyx.bookmanager.mapper.BookMapper">
+    <select id="getAllBook" resultType="Book">
+        select * from book_info;
+    </select>
+
+    <select id="getBookById" resultType="Book">
+        select * from book_info where book_id = #{id}
+    </select>
+
+    <update id="updateBook" parameterType="Book">
+        update book_info
+        set name = #{name}, author = #{author}, publish = #{publish}, ISBN = #{isbn},
+            introduction = #{introduction}, language = #{language}, price = #{price},
+            pubdate = #{pubdate}, class_id = #{classId}, pressmark = #{pressmark},
+            state = #{state}
+        where book_id = #{bookId}
+    </update>
+
+    <delete id="deleteBook">
+        delete from book_info where book_id = #{id}
+    </delete>
+
+    <insert id="addBook" parameterType="Book">
+        insert into book_info values (null, #{name}, #{author}, #{publish}, #{isbn}, #{introduction},
+                                      #{language}, #{price}, #{pubdate}, #{classId}, #{pressmark}, #{state})
+    </insert>
+
+    <select id="searchBook" resultType="Book">
+        select * from book_info where name like '%${keyword}%' or
+        publish like '%${keyword}%' or
+        author like '%${keyword}%'
+    </select>
+</mapper>
