@@ -1,7 +1,6 @@
 # 图书管理系统
 
-参考项目：https://github.com/withstars/Books-Management-System <br>
---->课程设计报告26页，包括项目计划进度安排、需求分析、概要设计、详细设计、测试报告，价格10元，需要请加qq: 2644911435
+参考项目：https://github.com/withstars/Books-Management-System
 
 #### 主要功能
 1.  登录、注销、修改密码
